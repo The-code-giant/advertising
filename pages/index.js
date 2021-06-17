@@ -68,15 +68,16 @@ const StepThree = ({ data, changeStep }) => {
       </div>
       <div className={styles.contentWrapper}>
         <h2>{data.title}</h2>
+        <div className={styles.linkBtnWrapper}>
+          <a className="exLink" href={data.link.href}>
+            {data.link.text}
+          </a>
+        </div>
       </div>
       <div
         className={styles.imageThirdBack}
         style={{ backgroundImage: `url(${data.backgroundUrl})` }}
-      >
-      </div>
-      <div className={styles.linkBtnWrapper}>
-        <a className="exLink" href={data.link.href}>{data.link.text}</a>
-      </div>
+      ></div>
     </div>
   );
 };
