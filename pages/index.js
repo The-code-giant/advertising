@@ -87,7 +87,7 @@ const StepOne = ({ changeStep }) => {
       <div className={styles.logoWrapper}>
         <img src="/images/logo.png" />
       </div>
-      <h2 style={{ textAlign: "center" }}>
+      <h2  className={styles.h1}style={{ textAlign: "center" }}>
         DE QUEL DESSERT GLACÉ AVEZ-VOUS ENVIE CET ÉTÉ?
       </h2>
       <div className={styles.homeList}>
