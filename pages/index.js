@@ -1,5 +1,6 @@
 import Head from "next/head";
 import styles from "../styles/Home.module.scss";
+import FadeInAnimation from '../hooks/FadeInHook'
 import { useState } from "react";
 export default function Home() {
   const [step, setStep] = useState(1);
@@ -16,7 +17,7 @@ export default function Home() {
   return (
     <div className={styles.container}>
       <Head>
-        <title>Create Next App</title>
+        <title>ADs</title>
         <link rel="icon" href="/favicon.ico" />
         <link rel="preconnect" href="https://fonts.gstatic.com" />
         {/* http://huffpost.sofiapulse.com/fvictoria.html */}
@@ -36,22 +37,21 @@ export default function Home() {
 }
 const StepTwo = ({ data, changeStep }) => {
   return (
-    <div className={styles.stepTwoWrapper}>
+    <div className={styles.stepTwoWrapper} style={{ backgroundImage: `url(${data.backgroundUrl})` }}>
       <div className={styles.logoWrapper}>
         <img src="/images/logo.png" />
       </div>
       <div className={styles.contentWrapper}>
-        <h2>{data.title}</h2>
+        <FadeInAnimation style={{ opacity: 0 }} wrapperElement="h2">{data.title}</FadeInAnimation>
         <div>
           <ul>
-            {data.children.map((child) => {
-              return <li onClick={() => changeStep(3, child)}>{child.text}</li>;
+            {data.children.map((child, id) => {
+              return (
+                <FadeInAnimation style={{ opacity: 0 }} key={id} wrapperElement="li" delay={0.3 * id} onClick={() => changeStep(3, child)}>{child.text}</FadeInAnimation>
+              )
             })}
           </ul>
         </div>
-      </div>
-      <div className={styles.imgBack}>
-        <img src={data.backgroundUrl}></img>
       </div>
     </div>
   );
@@ -61,22 +61,18 @@ const StepThree = ({ data, changeStep }) => {
   return (
     <div
       className={styles.stepThreeWrapper}
-      style={{ backgroundColor: data.bgColor }}
+      style={{ backgroundImage: `url(${data.backgroundUrl})` }}
     >
       <div className={styles.logoWrapper}>
         <img src="/images/logo.png" />
       </div>
       <div className={styles.contentWrapper}>
-        <h2>{data.title}</h2>
+      <FadeInAnimation style={{ opacity: 0 }} wrapperElement="h2" delay={0.5}>{data.title}</FadeInAnimation>
       </div>
-      <div
-        className={styles.imageThirdBack}
-        style={{ backgroundImage: `url(${data.backgroundUrl})` }}
-      ></div>
       <div className={styles.linkBtnWrapper}>
-        <a className="exLink" href={data.link.href}>
+        <FadeInAnimation wrapperElement="a" className={styles.externalLink} href={data.link.href} delay={0.7}>
           {data.link.text}
-        </a>
+        </FadeInAnimation>
       </div>
     </div>
   );
@@ -87,23 +83,23 @@ const StepOne = ({ changeStep }) => {
       <div className={styles.logoWrapper}>
         <img src="/images/logo.png" />
       </div>
-      <h2  className={styles.h1}style={{ textAlign: "center" }}>
+      <FadeInAnimation wrapperElement="h2" className={styles.h1} style={{ textAlign: "center", opacity: 0 }}>
         DE QUEL DESSERT GLACÉ AVEZ-VOUS ENVIE CET ÉTÉ?
-      </h2>
+      </FadeInAnimation>
       <div className={styles.homeList}>
         <ul>
-          <li onClick={() => changeStep(2, "fabulous")}>
+          <FadeInAnimation wrapperElement="li" onClick={() => changeStep(2, "fabulous")} delay="0.5" style={{ opacity: 0 }}>
             Les Fabuleux
             <img src="/images/lesFabuleux.png" />
-          </li>
-          <li onClick={() => changeStep(2, "classic")}>
+          </FadeInAnimation>
+          <FadeInAnimation wrapperElement="li" onClick={() => changeStep(2, "classic")} delay="0.7"style={{ opacity: 0 }}>
             Les Classiques
             <img src="/images/classics.png" />
-          </li>
-          <li onClick={() => changeStep(2, "boire")}>
+          </FadeInAnimation>
+          <FadeInAnimation wrapperElement="li" onClick={() => changeStep(2, "boire")} delay="0.9" style={{ opacity: 0 }}>
             À boire
             <img src="/images/drink.png" />
-          </li>
+          </FadeInAnimation>
         </ul>
       </div>
     </>
@@ -112,88 +108,88 @@ const StepOne = ({ changeStep }) => {
 const CONTENT = {
   classic: {
     title: "Découvrez tous nos classiques!",
-    backgroundUrl: "/images/classic/icecreams3.png",
+    backgroundUrl: "step2/bg-classics.jpg",
     children: [
       {
         text: "Crème Glacée Molle",
         bgColor: "#97d7df",
         title: "Découvrez nos crèmes molles enrobées!",
-        backgroundUrl: "/images/icecreems.png",
+        backgroundUrl: "/step3/bg-bees.jpg",
         link: { text: "Trouver une succursale", href: "https://google.com" },
       },
       {
         text: "Crème Glacée Molle Enrobée",
         bgColor: "#dbb5bf",
         title: "Découvrez notre Banane royale!",
-        backgroundUrl: "/images/icecreems.png",
+        backgroundUrl: "/step3/bg-royal.jpg",
         link: { text: "Trouver une succursale", href: "https://google.com" },
       },
       {
         text: "Découvrez notre Brownie!",
         bgColor: "#f7d873",
         title: "Découvrez notre Brownie!",
-        backgroundUrl: "/images/icecreems.png",
+        backgroundUrl: "/step3/bg-brownie.jpg",
         link: { text: "Trouver une succursale", href: "https://google.com" },
       },
       {
         text: "Vic-Mixte",
         bgColor: "#f1b1a8",
         title: "Découvrez notre Poutine Glacée!",
-        backgroundUrl: "/images/icecreems.png",
+        backgroundUrl: "/step3/bg-glacee.jpg",
         link: { text: "Trouver une succursale", href: "https://google.com" },
       },
     ],
   },
   fabulous: {
     title: "Découvrez tous nos fabuleux!",
-    backgroundUrl: "/images/classic/icecreams1.png",
+    backgroundUrl: "/step2/bg-fabelus.jpg",
     children: [
       {
         text: "Poutine glacée",
         bgColor: "rgb(246 196 208)",
         title: "Découvrez nos crèmes molles!",
-        backgroundUrl: "/images/fabulous/b1.jpg",
+        backgroundUrl: "/step3/bg-molles.jpg",
         link: { text: "Trouver une succursale", href: "https://google.com" },
       },
       {
         text: "Brownie",
         bgColor: "rgb(246 196 208)",
         title: "Découvrez nos slush!",
-        backgroundUrl: "/images/fabulous/b2.jpg",
+        backgroundUrl: "/step3/bg-slush.jpg",
         link: { text: "Trouver une succursale", href: "https://google.com" },
       },
       {
         text: "Banane Royale",
         bgColor: "#f7d569",
         title: "Découvrez nos givrés!",
-        backgroundUrl: "/images/fabulous/b3.jpg",
+        backgroundUrl: "/step3/bg-givres.jpg",
         link: { text: "Trouver une succursale", href: "https://google.com" },
       },
     ],
   },
   boire: {
-    title: "Découvrez tous nos fabuleux!",
-    backgroundUrl: "/images/classic/icecreams2.png",
+    title: "Découvrez tous nos breuvages!",
+    backgroundUrl: "/step2/bg-breuvages.jpg",
     children: [
       {
         text: "Givré",
         bgColor: "#9dd4a3",
         title: "Découvrez nos Vic-Mixtes!",
-        backgroundUrl: "/images/icecreems.png",
+        backgroundUrl: "/step3/bg-mixtes.jpg",
         link: { text: "Trouver une succursale", href: "https://google.com" },
       },
       {
         text: "Slush",
         bgColor: "#f3bbc4",
         title: "Découvrez nos sundaes!",
-        backgroundUrl: "/images/icecreems.png",
+        backgroundUrl: "/step3/bg-slush.jpg",
         link: { text: "Trouver une succursale", href: "https://google.com" },
       },
       {
         text: "Milkshake",
         bgColor: "#f3bbc4",
         title: "Découvrez nos Milkshakes!",
-        backgroundUrl: "/images/icecreems.png",
+        backgroundUrl: "/step3/bg-milkshake.jpg",
         link: { text: "Trouver une succursale", href: "https://google.com" },
       },
     ],
